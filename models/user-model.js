@@ -1,8 +1,5 @@
-const mongoose = require('express');
-const { model } = require('mongoose');
+const mongoose = require('mongoose');
 
-
-mongoose.connect("mongodb://127.0.0.1:27017/Scatch");
 
 const userSchema = mongoose.Schema({
     fullName: String,
