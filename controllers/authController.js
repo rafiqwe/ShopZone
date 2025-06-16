@@ -1,3 +1,4 @@
+
 const userModel = require("../models/user-model");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/generateToken");
@@ -45,12 +46,11 @@ module.exports.loginUser = async function (req, res) {
   if (!user) res.status(400).send("Email or Password invaild");
 
   bcrypt.compare(password, user.password, (err, result) => {
-    if(result) {
-      const token = generateToken(user);      
-      res.cookie('token', token);
-      res.send('You can Login');
-    }
-    else res.status(400).send("Email or Password invaild");
+    if (result) {
+      const token = generateToken(user);
+      res.cookie("token", token);
+      res.send("You can Login");
+    } else res.status(400).send("Email or Password invaild");
   });
 };
 
