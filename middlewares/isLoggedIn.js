@@ -1,20 +1,21 @@
 const jwt = require("jsonwebtoken");
-const userModel = require("../models/user-model");
-const flash = require('connect-flash');
 
-module.exports = async function (req, res, next) {
-  if (!req.cookies.token) {
-    req.flash("error", "You Need to login first");
-    return res.redirect('/')
+const isLoggedIn = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    req.flash("error_msg", "Please log in to access this page");
+    return res.redirect("/user"); // Redirect to login/register page
   }
+
   try {
-    const decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY);
-    const user = await userModel
-      .findOne({ email: decoded.email })
-      .select("-password");
-    req.user = user;
-    next();
-  } catch (error) {
-    console.log(error);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "hahaha");
+    req.user = decoded; // Store user data in request object
+    next(); // Allow access to next middleware or route
+  } catch (err) {
+    req.flash("error_msg", "Session expired, please login again");
+    return res.redirect("/auth");
   }
 };
+
+module.exports = isLoggedIn;
