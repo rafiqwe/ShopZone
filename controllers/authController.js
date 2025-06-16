@@ -37,4 +37,21 @@ const registerUser = async (req, res) => {
     console.log(error.message);
   }
 };
+
+module.exports.loginUser = async function (req, res) {
+  const { email, password } = req.body;
+
+  const user = await userModel.findOne({ email });
+  if (!user) res.status(400).send("Email or Password invaild");
+
+  bcrypt.compare(password, user.password, (err, result) => {
+    if(result) {
+      const token = generateToken(user);      
+      res.cookie('token', token);
+      res.send('You can Login');
+    }
+    else res.status(400).send("Email or Password invaild");
+  });
+};
+
 module.exports.registerUser = registerUser;
