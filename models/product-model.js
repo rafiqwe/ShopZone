@@ -19,4 +19,4 @@ const productSchema = mongoose.Schema({
   textcolor: String,
 });
 
-module.exports = mongoose.model("user", productSchema);
+module.exports = mongoose.model("product", productSchema);

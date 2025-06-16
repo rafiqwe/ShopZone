@@ -12,4 +12,4 @@ const userSchema = mongoose.Schema({
   gstin: String,
 });
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("owner", userSchema);
