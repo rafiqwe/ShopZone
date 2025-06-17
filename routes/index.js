@@ -1,9 +1,32 @@
 const express = require("express");
 const router = express.Router();
 const productModel = require("../models/product-model");
+const userModel = require("../models/user-model");
 const isLoggedIn = require("../middlewares/isLoggedIn");
 
-router.get("/", isLoggedIn, async (req, res) => {
+router.post("/cart/add", isLoggedIn, async (req, res) => {
+  const { productId } = req.body;
+  const user = await userModel.findOne({ email: req.user.email });
+  user.cart.push(productId);
+  await user.save();
+  req.flash("success_msg", "Add to Cart successfully.");
+  res.redirect("/shop");
+});
+
+router.get("/cart", isLoggedIn, async (req, res) => {
+  const user = await userModel
+    .findOne({ email: req.user.email })
+    .populate("cart");
+  const cart = user.cart;
+  const total = cart.forEach(item => {
+    console.log();
+
+  });
+  
+  res.render("cart", { cart });
+});
+
+router.get("/shop", isLoggedIn, async (req, res) => {
   try {
     const allProducts = await productModel.find();
     // Group by category
