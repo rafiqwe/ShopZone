@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ownerModel = require("../models/owner-model");
+const isLoggedIn = require("../middlewares/isLoggedIn")
 
 if (process.env.NODE_ENV === "development") {
   router.post("/create", async (req, res) => {
@@ -19,8 +20,8 @@ if (process.env.NODE_ENV === "development") {
     res.send(createOwner);
   });
 }
-router.get("/", (req, res) => {
-  res.send("hey man");
+router.get("/admin",isLoggedIn, (req, res) => {
+  res.render("admin");
 });
 
 module.exports = router;
