@@ -10,7 +10,10 @@ const productSchema = mongoose.Schema({
     default: 0,
   },
   description: String,
-  category: String,
+  category: {
+    type: Array,
+    default: "Popular",
+  },
 });
 
 module.exports = mongoose.model("product", productSchema);
