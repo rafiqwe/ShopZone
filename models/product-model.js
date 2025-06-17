@@ -11,7 +11,7 @@ const productSchema = mongoose.Schema({
   },
   description: String,
   category: {
-    type: Array,
+    type: String,
     default: "Popular",
   },
 });
