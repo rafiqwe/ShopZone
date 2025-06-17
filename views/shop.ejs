@@ -1,117 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shop Page</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50">
-  <!-- Header -->
-  <header class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <div class="text-xl font-bold text-gray-800">ShopZone</div>
-      <nav class="space-x-4 text-gray-700 font-medium">
-        <a href="#" class="hover:text-blue-600">Home</a>
-        <a href="#" class="hover:text-blue-600">Shop</a>
-        <a href="#" class="hover:text-blue-600">Contact</a>
-        <a href="#" class="hover:text-blue-600">Cart</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Main Shop Layout -->
-  <main class="max-w-7xl mx-auto mt-8 px-4 grid grid-cols-1 md:grid-cols-4 gap-6">
-    <!-- Left Sidebar -->
-    <aside class="space-y-8 col-span-1">
-      <!-- Sort By -->
-      <div>
-        <h2 class="text-lg font-semibold mb-2">Sort By</h2>
-        <ul class="space-y-1">
-          <li><a href="#" class="text-gray-600 hover:text-blue-500">Popularity</a></li>
-          <li><a href="#" class="text-gray-600 hover:text-blue-500">Price: Low to High</a></li>
-          <li><a href="#" class="text-gray-600 hover:text-blue-500">Price: High to Low</a></li>
-        </ul>
-      </div>
-
-      <!-- New Collection -->
-      <div>
-        <h2 class="text-lg font-semibold mb-2">New Collection</h2>
-        <ul class="text-gray-600 space-y-1">
-          <li><a href="#" class="hover:text-blue-500">Summer '25</a></li>
-          <li><a href="#" class="hover:text-blue-500">Spring Picks</a></li>
-        </ul>
-      </div>
-
-      <!-- All Products -->
-      <div>
-        <h2 class="text-lg font-semibold mb-2">All Products</h2>
-        <ul class="text-gray-600 space-y-1">
-          <li><a href="#" class="hover:text-blue-500">Men</a></li>
-          <li><a href="#" class="hover:text-blue-500">Women</a></li>
-          <li><a href="#" class="hover:text-blue-500">Children</a></li>
-        </ul>
-      </div>
-
-      <!-- Discount Products -->
-      <div>
-        <h2 class="text-lg font-semibold mb-2">Discount Products</h2>
-        <ul class="text-gray-600 space-y-1">
-          <li><a href="#" class="hover:text-blue-500">Up to 30%</a></li>
-          <li><a href="#" class="hover:text-blue-500">Clearance</a></li>
-        </ul>
-      </div>
-
-      <!-- Filter Section -->
-      <div class="pt-6 border-t border-gray-200">
-        <h2 class="text-lg font-semibold mb-2">Filter By</h2>
-        <div class="mb-4">
-          <h3 class="font-medium text-gray-700">Availability</h3>
-          <label class="block text-sm"><input type="checkbox" class="mr-2" /> In Stock</label>
-          <label class="block text-sm"><input type="checkbox" class="mr-2" /> Out of Stock</label>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50">
+    <%- include("./partials/navber") %>
+    <!-- Main Shop Layout -->
+    <main
+      class="max-w-7xl mx-auto mt-8 px-4 grid grid-cols-1 md:grid-cols-4 gap-6"
+    >
+      <!-- Left Sidebar -->
+      <aside class="space-y-8 col-span-1">
+        <!-- Sort By -->
         <div>
-          <h3 class="font-medium text-gray-700">Discount</h3>
-          <label class="block text-sm"><input type="checkbox" class="mr-2" /> 10% or more</label>
-          <label class="block text-sm"><input type="checkbox" class="mr-2" /> 30% or more</label>
+          <h2 class="text-lg font-semibold mb-2">Sort By</h2>
+          <ul class="space-y-1">
+            <li>
+              <a href="#" class="text-gray-600 hover:text-blue-500"
+                >Popularity</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-600 hover:text-blue-500"
+                >Price: Low to High</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-gray-600 hover:text-blue-500"
+                >Price: High to Low</a
+              >
+            </li>
+          </ul>
         </div>
-      </div>
-    </aside>
 
-    <!-- Product Cards Right Section -->
-    <section class="col-span-1 md:col-span-3 space-y-10">
-      <!-- Men Section -->
-      <div>
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Men's Products</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-          <!-- Product Card Example -->
-          <div class="bg-white shadow rounded-lg overflow-hidden">
-            <img src="https://via.placeholder.com/300" class="w-full h-48 object-cover" />
-            <div class="p-4">
-              <h3 class="font-medium text-gray-800">T-Shirt</h3>
-              <p class="text-blue-600 font-semibold">$19.99</p>
-            </div>
+        <!-- New Collection -->
+        <div>
+          <h2 class="text-lg font-semibold mb-2">New Collection</h2>
+          <ul class="text-gray-600 space-y-1">
+            <li><a href="#" class="hover:text-blue-500">Summer '25</a></li>
+            <li><a href="#" class="hover:text-blue-500">Spring Picks</a></li>
+          </ul>
+        </div>
+
+        <!-- All Products -->
+        <div>
+          <h2 class="text-lg font-semibold mb-2">All Products</h2>
+          <ul class="text-gray-600 space-y-1">
+            <li><a href="#" class="hover:text-blue-500">Men</a></li>
+            <li><a href="#" class="hover:text-blue-500">Women</a></li>
+            <li><a href="#" class="hover:text-blue-500">Children</a></li>
+          </ul>
+        </div>
+
+        <!-- Discount Products -->
+        <div>
+          <h2 class="text-lg font-semibold mb-2">Discount Products</h2>
+          <ul class="text-gray-600 space-y-1">
+            <li><a href="#" class="hover:text-blue-500">Up to 30%</a></li>
+            <li><a href="#" class="hover:text-blue-500">Clearance</a></li>
+          </ul>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="pt-6 border-t border-gray-200">
+          <h2 class="text-lg font-semibold mb-2">Filter By</h2>
+          <div class="mb-4">
+            <h3 class="font-medium text-gray-700">Availability</h3>
+            <label class="block text-sm"
+              ><input type="checkbox" class="mr-2" /> In Stock</label
+            >
+            <label class="block text-sm"
+              ><input type="checkbox" class="mr-2" /> Out of Stock</label
+            >
           </div>
-          <!-- Repeat product cards... -->
+          <div>
+            <h3 class="font-medium text-gray-700">Discount</h3>
+            <label class="block text-sm"
+              ><input type="checkbox" class="mr-2" /> 10% or more</label
+            >
+            <label class="block text-sm"
+              ><input type="checkbox" class="mr-2" /> 30% or more</label
+            >
+          </div>
         </div>
-      </div>
+      </aside>
 
-      <!-- Women's Section -->
-      <div>
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Women's Products</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-          <!-- Product cards here -->
-        </div>
-      </div>
+      <!-- Product Cards Right Section -->
+      <section class="col-span-1 md:col-span-3 space-y-10">
+        <!-- Men Section -->
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+            Men's Products
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <% manProducts.forEach(product => { %>
+            <div class="bg-white shadow rounded-lg overflow-hidden">
+              <% if(product.image){ %>
+              <img
+                src="data:image/jpg;base64,<%=  product.image.toString('base64') %>"
+                class="w-full h-48 object-cover"
+              />
+              <% } else { %>
+              <img
+                src="<%=  product.imageUrl %>"
+                class="w-full h-48 object-cover"
+              />
+              <% } %>
 
-      <!-- Children Section -->
-      <div>
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Children's Products</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-          <!-- Product cards here -->
+              <div class="p-4">
+                <h3 class="font-medium text-gray-800"><%= product.name %></h3>
+                <p class="text-blue-600 font-semibold">$<%= product.price %></p>
+                <p class="text-sm text-gray-500 capitalize">
+                  <%= product.category %>
+                </p>
+              </div>
+            </div>
+            <% }) %>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
-</body>
+
+        <!-- Women's Section -->
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+            Women's Products
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <% womanProducts.forEach(product => { %>
+            <div class="bg-white shadow rounded-lg overflow-hidden">
+              <% if(product.image){ %>
+              <img
+                src="data:image/jpg;base64,<%=  product.image.toString('base64') %>"
+                class="w-full h-48 object-cover"
+              />
+              <% } else { %>
+              <img
+                src="<%=  product.imageUrl %>"
+                class="w-full h-48 object-cover"
+              />
+              <% } %>
+
+              <div class="p-4">
+                <h3 class="font-medium text-gray-800"><%= product.name %></h3>
+                <p class="text-blue-600 font-semibold">$<%= product.price %></p>
+                <p class="text-sm text-gray-500 capitalize">
+                  <%= product.category %>
+                </p>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- Children Section -->
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+            Children's Products
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <% childProducts.forEach(product => { %>
+            <div class="bg-white shadow rounded-lg overflow-hidden">
+              <% if(product.image){ %>
+              <img
+                src="data:image/jpg;base64,<%=  product.image.toString('base64') %>"
+                class="w-full h-48 object-cover"
+              />
+              <% } else { %>
+              <img
+                src="<%=  product.imageUrl %>"
+                class="w-full h-48 object-cover"
+              />
+              <% } %>
+
+              <div class="p-4">
+                <h3 class="font-medium text-gray-800"><%= product.name %></h3>
+                <p class="text-blue-600 font-semibold">$<%= product.price %></p>
+                <p class="text-sm text-gray-500 capitalize">
+                  <%= product.category %>
+                </p>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>

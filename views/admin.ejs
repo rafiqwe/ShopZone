@@ -129,15 +129,21 @@
             <label
               for="category"
               class="block text-sm font-medium text-gray-700"
-              >Category</label
             >
-            <input
-              type="text"
+              Category
+            </label>
+            <select
               name="category"
               id="category"
               class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
-            />
+            >
+              <option value="">Select Category</option>
+              <option value="man">Man</option>
+              <option value="woman">Woman</option>
+              <option value="child">Child</option>
+            </select>
           </div>
+
           <div>
             <label for="image" class="block text-sm font-medium text-gray-700"
               >Image URL</label
