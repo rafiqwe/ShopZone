@@ -1,4 +1,3 @@
-
 const userModel = require("../models/user-model");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/generateToken");
@@ -15,7 +14,8 @@ const registerUser = async (req, res) => {
 
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).send("User already exists");
+      req.flash("error_msg", "User already exists");
+      return res.redirect("/users");
     }
 
     bcrypt.genSalt(10, (err, salt) => {
@@ -30,12 +30,14 @@ const registerUser = async (req, res) => {
           });
           const token = generateToken(user);
           res.cookie("token", token);
-          res.send("Users Created sucssecfully");
+          req.flash("success_msg", "Registered successfully!");
+          res.redirect("/users");
         }
       });
     });
   } catch (error) {
-    console.log(error.message);
+    req.flash("error_msg", "Something went wrong");
+    res.redirect("/users");
   }
 };
 
@@ -54,9 +56,9 @@ module.exports.loginUser = async function (req, res) {
   });
 };
 
-module.exports.logout = (req,res) => {
-  res.cookie('token', '');
-  res.redirect("/users")
-}
+module.exports.logout = (req, res) => {
+  res.cookie("token", "");
+  res.redirect("/users");
+};
 
 module.exports.registerUser = registerUser;
