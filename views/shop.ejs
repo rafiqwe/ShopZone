@@ -7,7 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-50">
-    <%- include("./partials/navber") %>
+    <%- include("./partials/navber") %> <% if (success_msg.length > 0) { %>
+    <div
+      class="bg-green-100 absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-green-400 text-green-700 px-4 py-2 rounded mb-4"
+    >
+      <%= success_msg %>
+    </div>
+    <% } %> <% if (error_msg.length > 0) { %>
+    <div
+      class="bg-red-100 absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-red-400 text-red-700 px-4 py-2 rounded mb-4"
+    >
+      <%= error_msg %>
+    </div>
+    <% } %>
     <!-- Main Shop Layout -->
     <main
       class="max-w-7xl mx-auto mt-8 px-4 grid grid-cols-1 md:grid-cols-4 gap-6"
@@ -33,15 +45,6 @@
                 >Price: High to Low</a
               >
             </li>
-          </ul>
-        </div>
-
-        <!-- New Collection -->
-        <div>
-          <h2 class="text-lg font-semibold mb-2">New Collection</h2>
-          <ul class="text-gray-600 space-y-1">
-            <li><a href="#" class="hover:text-blue-500">Summer '25</a></li>
-            <li><a href="#" class="hover:text-blue-500">Spring Picks</a></li>
           </ul>
         </div>
 
@@ -97,25 +100,42 @@
           </h2>
           <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
             <% manProducts.forEach(product => { %>
-            <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div
+              class="bg-white shadow rounded-lg overflow-hidden flex flex-col justify-between"
+            >
               <% if(product.image){ %>
               <img
-                src="data:image/jpg;base64,<%=  product.image.toString('base64') %>"
+                src="data:image/jpg;base64,<%= product.image.toString('base64') %>"
                 class="w-full h-48 object-cover"
               />
               <% } else { %>
               <img
-                src="<%=  product.imageUrl %>"
+                src="<%= product.imageUrl %>"
                 class="w-full h-48 object-cover"
               />
               <% } %>
 
-              <div class="p-4">
+              <div class="p-4 flex flex-col gap-2">
                 <h3 class="font-medium text-gray-800"><%= product.name %></h3>
                 <p class="text-blue-600 font-semibold">$<%= product.price %></p>
                 <p class="text-sm text-gray-500 capitalize">
                   <%= product.category %>
                 </p>
+
+                <!-- Add to Cart Form -->
+                <form action="/cart/add" method="POST">
+                  <input
+                    type="hidden"
+                    name="productId"
+                    value="<%= product._id %>"
+                  />
+                  <button
+                    type="submit"
+                    class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200"
+                  >
+                    Add to Cart
+                  </button>
+                </form>
               </div>
             </div>
             <% }) %>
@@ -148,6 +168,19 @@
                 <p class="text-sm text-gray-500 capitalize">
                   <%= product.category %>
                 </p>
+                <form action="/cart/add" method="POST">
+                  <input
+                    type="hidden"
+                    name="productId"
+                    value="<%= product._id %>"
+                  />
+                  <button
+                    type="submit"
+                    class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200"
+                  >
+                    Add to Cart
+                  </button>
+                </form>
               </div>
             </div>
             <% }) %>
@@ -180,6 +213,19 @@
                 <p class="text-sm text-gray-500 capitalize">
                   <%= product.category %>
                 </p>
+                <form action="/cart/add" method="POST">
+                  <input
+                    type="hidden"
+                    name="productId"
+                    value="<%= product._id %>"
+                  />
+                  <button
+                    type="submit"
+                    class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200"
+                  >
+                    Add to Cart
+                  </button>
+                </form>
               </div>
             </div>
             <% }) %>
