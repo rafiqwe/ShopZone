@@ -5,14 +5,15 @@ const isLoggedIn = (req, res, next) => {
 
   if (!token) {
     req.flash("error_msg", "Please log in to access this page");
-    return res.redirect("/user"); // Redirect to login/register page
+    return res.redirect("/users"); // Redirect to login/register page
   }
-
+  
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "hahaha");
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
     req.user = decoded; // Store user data in request object
     next(); // Allow access to next middleware or route
   } catch (err) {
+    console.log(err);
     req.flash("error_msg", "Session expired, please login again");
     return res.redirect("/auth");
   }
