@@ -1,7 +1,5 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const path = require("path");
 const db = require("./config/mongoose-connection");
 const app = express();
@@ -40,5 +38,5 @@ const port = 3000;
 app.use("/owners", ownersRouter);
 app.use("/users", usersRouter);
 app.use("/product", productRouter);
-app.use("/shop", index);
+app.use("/", index);
 app.listen(port);
