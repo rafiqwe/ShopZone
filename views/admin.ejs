@@ -7,6 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100 min-h-screen">
+    <% if (success_msg.length > 0) { %>
+    <div
+      class="bg-green-100 absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-green-400 text-green-700 px-4 py-2 rounded mb-4"
+    >
+      <%= success_msg %>
+    </div>
+    <% } %> <% if (error_msg.length > 0) { %>
+    <div
+      class="bg-red-100 absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-red-400 text-red-700 px-4 py-2 rounded mb-4"
+    >
+      <%= error_msg %>
+    </div>
+    <% } %>
+
     <!-- Header -->
     <header class="bg-white shadow p-4 flex items-center justify-between">
       <div class="text-xl font-bold text-blue-600">AdminPanel</div>
@@ -54,7 +68,12 @@
         </h2>
 
         <!-- Product Form -->
-        <form action="/admin/products/create" method="POST" class="space-y-4">
+        <form
+          action="/product/create"
+          method="POST"
+          class="space-y-4"
+          enctype="multipart/form-data"
+        >
           <div>
             <label for="name" class="block text-sm font-medium text-gray-700"
               >Product Name</label
@@ -86,7 +105,7 @@
             >
             <input
               type="number"
-              name="Discount"
+              name="discount"
               id="Discount"
               class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
             />
@@ -102,7 +121,7 @@
               name="description"
               id="description"
               rows="4"
-              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none resize-none"
             ></textarea>
           </div>
 
@@ -119,13 +138,24 @@
               class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
             />
           </div>
-
           <div>
             <label for="image" class="block text-sm font-medium text-gray-700"
               >Image URL</label
             >
             <input
               type="url"
+              name="imageUrl"
+              id="image"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+            <h1 class="pt-3 text-md font-medium text-gray-700">or</h1>
+          </div>
+          <div>
+            <label for="image" class="block text-sm font-medium text-gray-700"
+              >Image</label
+            >
+            <input
+              type="file"
               name="image"
               id="image"
               class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
@@ -190,6 +220,11 @@
       document.getElementById("image").addEventListener("input", (e) => {
         document.getElementById("previewImage").src = e.target.value;
       });
+      setTimeout(() => {
+        document
+          .querySelectorAll(".bg-green-100, .bg-red-100")
+          .forEach((el) => el.remove());
+      }, 4000);
     </script>
   </body>
 </html>
