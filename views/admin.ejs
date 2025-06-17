@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow p-4 flex items-center justify-between">
+      <div class="text-xl font-bold text-blue-600">AdminPanel</div>
+      <nav class="space-x-4">
+        <a href="/" class="text-gray-700 hover:text-blue-600 font-medium"
+          >Home</a
+        >
+        <a
+          href="/users/logout"
+          class="text-gray-700 hover:text-blue-600 font-medium"
+          >Logout</a
+        >
+      </nav>
+    </header>
+
+    <!-- Main Section -->
+    <div class="flex flex-col md:flex-row p-4 gap-6">
+      <!-- Sidebar -->
+      <aside class="md:w-1/4 w-full bg-white shadow rounded-lg p-4 space-y-4">
+        <h2 class="text-lg font-semibold text-gray-800 border-b pb-2">
+          Dashboard
+        </h2>
+        <ul class="space-y-2">
+          <li>
+            <a
+              href="/admin/products"
+              class="block text-blue-600 hover:underline"
+              >All Products</a
+            >
+          </li>
+          <li>
+            <a
+              href="/admin/products/create"
+              class="block text-blue-600 hover:underline"
+              >Create Product</a
+            >
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Main Form Area -->
+      <main class="md:w-3/4 w-full bg-white shadow rounded-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800">
+          Create Product
+        </h2>
+
+        <!-- Product Form -->
+        <form action="/admin/products/create" method="POST" class="space-y-4">
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700"
+              >Product Name</label
+            >
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="price" class="block text-sm font-medium text-gray-700"
+              >Price</label
+            >
+            <input
+              type="number"
+              name="price"
+              id="price"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label
+              for="Discount"
+              class="block text-sm font-medium text-gray-700"
+              >Discount</label
+            >
+            <input
+              type="number"
+              name="Discount"
+              id="Discount"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label
+              for="description"
+              class="block text-sm font-medium text-gray-700"
+              >Description</label
+            >
+            <textarea
+              name="description"
+              id="description"
+              rows="4"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+            ></textarea>
+          </div>
+
+          <div>
+            <label
+              for="category"
+              class="block text-sm font-medium text-gray-700"
+              >Category</label
+            >
+            <input
+              type="text"
+              name="category"
+              id="category"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="image" class="block text-sm font-medium text-gray-700"
+              >Image URL</label
+            >
+            <input
+              type="url"
+              name="image"
+              id="image"
+              class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+          >
+            Add Product
+          </button>
+        </form>
+        <div class="mt-10 border-t pt-6">
+          <h2 class="text-xl font-bold mb-4 text-gray-800">Live Preview</h2>
+          <div class="border p-4 rounded-lg bg-white shadow-sm">
+            <h3 id="previewName" class="text-lg font-semibold text-gray-700">
+              Product Name
+            </h3>
+            <p id="previewDescription" class="text-gray-600 mt-2">
+              Description
+            </p>
+            <p id="previewCategory" class="text-gray-600 mt-2">category</p>
+            <p class="text-blue-500 font-medium mt-1">
+              Price: $<span id="previewPrice">0</span>
+            </p>
+            <p class="text-green-500 font-medium mt-1">
+              Discount: $<span id="previewDiscount">0</span>
+            </p>
+            <img
+              id="previewImage"
+              src=""
+              alt="Image"
+              class="mt-4 w-40 h-40 object-cover rounded"
+            />
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.getElementById("name").addEventListener("input", (e) => {
+        document.getElementById("previewName").textContent =
+          e.target.value || "Product Name";
+      });
+      document.getElementById("description").addEventListener("input", (e) => {
+        document.getElementById("previewDescription").textContent =
+          e.target.value || "Description";
+      });
+      document.getElementById("category").addEventListener("input", (e) => {
+        document.getElementById("previewCategory").textContent =
+          e.target.value || "Category";
+      });
+      document.getElementById("Discount").addEventListener("input", (e) => {
+        document.getElementById("previewDiscount").textContent =
+          e.target.value || "0";
+      });
+      document.getElementById("price").addEventListener("input", (e) => {
+        document.getElementById("previewPrice").textContent =
+          e.target.value || "0";
+      });
+      document.getElementById("image").addEventListener("input", (e) => {
+        document.getElementById("previewImage").src = e.target.value;
+      });
+    </script>
+  </body>
+</html>
