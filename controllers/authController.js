@@ -51,7 +51,7 @@ module.exports.loginUser = async function (req, res) {
     if (result) {
       const token = generateToken(user);
       res.cookie("token", token);
-      res.send("You can Login");
+      res.redirect("/shop");
     } else res.status(400).send("Email or Password invaild");
   });
 };
