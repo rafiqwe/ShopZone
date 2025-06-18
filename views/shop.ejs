@@ -27,26 +27,22 @@
       <!-- Left Sidebar -->
       <aside class="space-y-8 col-span-1">
         <!-- Sort By -->
-        <div>
-          <h2 class="text-lg font-semibold mb-2">Sort By</h2>
-          <ul class="space-y-1">
-            <li>
-              <a href="#" class="text-gray-600 hover:text-blue-500"
-                >Popularity</a
-              >
-            </li>
-            <li>
-              <a href="#" class="text-gray-600 hover:text-blue-500"
-                >Price: Low to High</a
-              >
-            </li>
-            <li>
-              <a href="#" class="text-gray-600 hover:text-blue-500"
-                >Price: High to Low</a
-              >
-            </li>
-          </ul>
+        <div class="flex justify-end mb-6">
+          <form action="/shop" method="GET">
+            <label for="sort" class="mr-2 font-medium">Sort by:</label>
+            <select
+              name="sort"
+              id="sort"
+              onchange="this.form.submit()"
+              class="px-4 py-2 border border-gray-300 rounded-md"
+            >
+              <option value="">Default</option>
+              <option value="low" <%= sort === "low" ? "selected" : "" %> >Price: Low to High</option>
+              <option value="high" <%= sort === "high" ? "selected" : "" %> >Price: High to Low</option>
+            </select>
+          </form>
         </div>
+
 
         <!-- All Products -->
         <div>
@@ -117,7 +113,20 @@
 
               <div class="p-4 flex flex-col gap-2">
                 <h3 class="font-medium text-gray-800"><%= product.name %></h3>
-                <p class="text-blue-600 font-semibold">$<%= product.price %></p>
+                  <%
+                    const price = Number(product.price);
+                    const discount = Number(product.discount);
+                  %>
+
+                  <p class="text-blue-600 font-semibold">
+                    $<%= price - discount %>
+                    <% if (discount > 0) { %>
+                      <span class="line-through text-gray-400 ml-2">$<%= price %></span>
+                     
+                    <% } %>
+                  </p>
+
+                <!-- <p class="text-blue-600 font-semibold">$<%= product.price %></p> -->
                 <p class="text-sm text-gray-500 capitalize">
                   <%= product.category %>
                 </p>
@@ -164,7 +173,18 @@
 
               <div class="p-4">
                 <h3 class="font-medium text-gray-800"><%= product.name %></h3>
-                <p class="text-blue-600 font-semibold">$<%= product.price %></p>
+                  <% 
+                    const price = Number(product.price);
+                    const discount = Number(product.discount);
+                  %>
+                  <p class="text-blue-600 font-semibold">
+                    $<%= price - discount %> 
+                    <% if (discount > 0) { %>
+                      <span class="line-through text-gray-400 ml-2">$<%= price   %></span>
+
+                    <% } %>
+                  </p>
+
                 <p class="text-sm text-gray-500 capitalize">
                   <%= product.category %>
                 </p>
@@ -233,5 +253,6 @@
         </div>
       </section>
     </main>
+    <%- include("./partials/footer") %>
   </body>
 </html>
