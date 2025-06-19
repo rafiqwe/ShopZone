@@ -15,7 +15,7 @@ const isLoggedIn = (req, res, next) => {
   } catch (err) {
     console.log(err);
     req.flash("error_msg", "Session expired, please login again");
-    return res.redirect("/auth");
+    return res.redirect("/users");
   }
 };
 
