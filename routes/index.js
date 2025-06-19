@@ -19,9 +19,6 @@ router.get("/cart", isLoggedIn, async (req, res) => {
     .findOne({ email: req.user.email })
     .populate("cart");
   const cart = user.cart;
-  const total = cart.forEach((item) => {
-    console.log();
-  });
 
   res.render("cart", { cart });
 });

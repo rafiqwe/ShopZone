@@ -102,4 +102,20 @@ router.get("/admin", isOwner, isLoggedIn, (req, res) => {
   res.render("admin");
 });
 
+router.get("/products", isOwner, async (req, res) => {
+  try {
+    const owner = await ownerModel
+      .findOne({ email: req.owner.email })
+      .populate("product"); // ✅ populate product instead of cart
+
+    if (!owner) {
+      return res.status(404).send("Owner not found");
+    }
+    res.render("all-product", { products: owner.product }); // render to a view
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
