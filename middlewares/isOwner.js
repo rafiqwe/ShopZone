@@ -10,7 +10,7 @@ const isOwner = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(ownerToken, process.env.OWNER_JWT);
-    req.user = decoded; // Store user data in request object
+    req.owner = decoded; // Store user data in request object
     next(); // Allow access to next middleware or route
   } catch (err) {
     console.log(err);
