@@ -3,6 +3,7 @@ const router = express.Router();
 const productModel = require("../models/product-model");
 const userModel = require("../models/user-model");
 const isLoggedIn = require("../middlewares/isLoggedIn");
+const isOwner = require("../middlewares/isOwner");
 
 router.post("/cart/add", isLoggedIn, async (req, res) => {
   const { productId } = req.body;
