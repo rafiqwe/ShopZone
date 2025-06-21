@@ -6,6 +6,7 @@ const isLoggedIn = require("../middlewares/isLoggedIn");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { ownerGenerateToken } = require("../utils/generateToken");
+const ordersModel = require("../models/orders-model");
 
 if (process.env.NODE_ENV === "development") {
   router.post("/create", async (req, res) => {
@@ -116,6 +117,13 @@ router.get("/products", isOwner, async (req, res) => {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
+});
+
+router.get("/oders", isOwner, isLoggedIn, async (req, res) => {
+  const orders = await ordersModel.find().populate("products");
+  console.log(orders);
+
+  res.render("orders", { orders });
 });
 
 module.exports = router;
