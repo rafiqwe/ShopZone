@@ -1,22 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <header class="bg-white shadow sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-        <div class="text-xl font-bold text-gray-800">ShopZone</div>
-        <nav class="space-x-4 text-gray-700 font-medium">
-          <a href="/users" class="hover:text-blue-600">Home</a>
-          <a href="/shop" class="hover:text-blue-600">Shop</a>
-          <a href="/contact" class="hover:text-blue-600">Contact</a>
-          <a href="/cart" class="hover:text-blue-600">Cart</a>
-          <a href="/users/logout" class="text-red-700">Logout</a>
-        </nav>
-      </div>
-    </header>
-  </body>
-</html>
+<header class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+    <div class="text-xl font-bold text-gray-800">ShopZone</div>
+    <% var loggedIn = typeof loggedIn !== 'undefined' ? loggedIn : false %> <%
+    if(loggedIn){ %>
+    <ul class="flex gap-6 items-center">
+      <li>
+        <a href="/" class="text-gray-700 hover:text-yellow-500">Home</a>
+      </li>
+
+      <li>
+        <a href="/users/register" class="text-gray-700 hover:text-yellow-500"
+          >Register</a
+        >
+      </li>
+    </ul>
+    <% } %> <% if(!loggedIn){ %>
+    <nav class="space-x-4 text-gray-700 font-medium">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <a href="/shop" class="hover:text-blue-600">Shop</a>
+      <a href="/contact" class="hover:text-blue-600">Contact</a>
+      <a href="/cart" class="hover:text-blue-600">Cart</a>
+      <a href="/users/logout" class="text-red-700">Logout</a>
+    </nav>
+    <% } %>
+  </div>
+</header>
