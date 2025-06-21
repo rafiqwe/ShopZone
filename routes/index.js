@@ -12,7 +12,7 @@ router.post("/cart/add", isLoggedIn, async (req, res) => {
   const user = await userModel.findOne({ email: req.user.email });
   user.cart.push(productId);
   await user.save();
-  req.flash("success_msg", "Add to Cart successfully.");
+  req.flash("success_msg", "Added to cart successfully.");
   res.redirect("/shop");
 });
 
@@ -36,6 +36,7 @@ router.post("/cart/remove", isLoggedIn, async (req, res) => {
 
   // Save the updated user
   await user.save();
+  req.flash("success_msg", " Cart Deleted successfully.");
 
   // Send back the updated cart
   res.redirect("/cart"); // or res.send(user.cart);
@@ -78,7 +79,6 @@ router.get("/checkout", isLoggedIn, async (req, res) => {
       })
     );
 
-    console.log(cartProducts); // Now this shows all product details in cart
     res.render("checkout", { cartProducts, user }); // or res.send(cartProducts)
   } catch (err) {
     console.error(err.message);
@@ -91,7 +91,6 @@ router.post("/checkout/place-order", isLoggedIn, async (req, res) => {
     const user = await userModel
       .findOne({ email: req.user.email })
       .populate("cart");
-    console.log(user);
 
     if (!user) {
       return res.status(404).send("User not found");
@@ -166,4 +165,3 @@ router.post("/contact", async (req, res) => {
 
 module.exports = router;
 
-module.exports = router;

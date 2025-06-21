@@ -40,19 +40,24 @@ const registerUser = async (req, res) => {
     res.redirect("/users");
   }
 };
-
 module.exports.loginUser = async function (req, res) {
   const { email, password } = req.body;
 
   const user = await userModel.findOne({ email });
-  if (!user) res.status(400).send("Email or Password invaild");
+  if (!user) {
+    req.flash("error_msg", "Email or Password is invalid");
+    return res.redirect("/users");
+  }
 
   bcrypt.compare(password, user.password, (err, result) => {
     if (result) {
       const token = generateToken(user);
       res.cookie("token", token);
-      res.redirect("/shop");
-    } else res.status(400).send("Email or Password invaild");
+      return res.redirect("/shop");
+    } else {
+      req.flash("error_msg", "Email or Password is invalid");
+      return res.redirect("/users");
+    }
   });
 };
 

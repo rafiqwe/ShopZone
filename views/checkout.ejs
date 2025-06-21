@@ -7,19 +7,51 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <% if (success_msg.length > 0) { %>
-    <div
-      class="bg-green-100 absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-green-400 text-green-700 px-4 py-2 rounded mb-4"
-    >
-      <%= success_msg %>
+    <%- include("./partials/navber") %> <% if (success_msg.length > 0) { %>
+    <div class="fixed top-5 right-5 z-50 animate-slide-down">
+      <div
+        class="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3"
+      >
+        <svg
+          class="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 12l2 2 4-4m1-5a9 9 0 11-6.627 15.627A9 9 0 0115 3z"
+          ></path>
+        </svg>
+        <span><%= success_msg %></span>
+      </div>
     </div>
     <% } %> <% if (error_msg.length > 0) { %>
-    <div
-      class="bg-red-100 absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-red-400 text-red-700 px-4 py-2 rounded mb-4"
-    >
-      <%= error_msg %>
+    <div class="fixed top-5 right-5 z-50 animate-slide-down">
+      <div
+        class="bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3"
+      >
+        <svg
+          class="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+        <span><%= error_msg %></span>
+      </div>
     </div>
-    <% } %> <%- include("./partials/navber") %>
+    <% } %>
 
     <div class="max-w-4xl mx-auto py-10 px-4">
       <h1 class="text-2xl font-bold mb-6">Checkout</h1>
@@ -132,5 +164,12 @@
     </div>
 
     <%- include("./partials/footer") %>
+
+    <script>
+      setTimeout(() => {
+        const toast = document.querySelector(".animate-slide-down");
+        if (toast) toast.style.display = "none";
+      }, 3000);
+    </script>
   </body>
 </html>
