@@ -7,6 +7,10 @@ const isOwner = require("../middlewares/isOwner");
 const ownerModel = require("../models/owner-model");
 const orderModel = require("../models/orders-model");
 
+router.get("/", (req, res) => {
+  res.render("landing");
+});
+
 router.post("/cart/add", isLoggedIn, async (req, res) => {
   const { productId } = req.body;
   const user = await userModel.findOne({ email: req.user.email });
@@ -160,8 +164,8 @@ router.post("/contact", async (req, res) => {
   // You can save this to DB or send an email, etc.
   console.log("📩 Contact Form:", { name, email, message });
 
-  res.render("contact", { message: "Thank you for contacting us!" });
+  res.render("contact", { message: "Thank you for contacting us!"});
 });
 
 module.exports = router;
-
+ 
