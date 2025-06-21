@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All Orders</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <%- include("./partials/adminNav.ejs") %>
+
+    <div class="flex flex-col md:flex-row p-4 gap-6">
+      <!-- SideBar -->
+      <%- include('./partials/adminAside.ejs') %>
+      <main class="md:w-3/4 w-full bg-white shadow rounded-lg p-6">
+        <div class="max-w-7xl mx-auto">
+          <h1 class="text-4xl font-bold text-gray-800 mb-10 border-b pb-4">
+            📦 All Orders
+          </h1>
+
+          <% if (orders.length === 0) { %>
+          <p class="text-center text-gray-600">
+            No orders have been placed yet.
+          </p>
+          <% } else { %>
+          <div class="space-y-10">
+            <% orders.forEach(order => { %>
+            <div
+              class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition duration-300"
+            >
+              <div class="mb-4">
+                <h2 class="text-xl font-semibold text-gray-700">
+                  👤 <%= order.user.name %>
+                </h2>
+                <p class="text-gray-500 text-sm">
+                  📧 <%= order.user.email %> | 📞 <%= order.user.phone %>
+                </p>
+                <p class="text-sm text-gray-500 mt-1">
+                  🏠 Address: <%= order.user.address %>
+                </p>
+                <p class="text-sm text-gray-400 mb-4 mt-1">
+                  🕒 Ordered on: <%= new Date(order.createdAt).toLocaleString()
+                  %>
+                </p>
+              </div>
+
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4"
+              >
+                <% order.products.forEach(p => { %>
+                <div
+                  class="flex bg-gray-50 rounded-lg border p-3 shadow-sm hover:shadow-md transition duration-200"
+                >
+                  <% if (p.image) { %>
+                  <img
+                    src="data:image/jpeg;base64,<%= p.image.toString('base64') %>"
+                    class="w-16 h-16 object-cover rounded-md mr-4"
+                  />
+                  <% } else if (p.imageUrl) { %>
+                  <img
+                    src="<%= p.imageUrl %>"
+                    class="w-16 h-16 object-cover rounded-md mr-4"
+                  />
+                  <% } else { %>
+                  <div
+                    class="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-500 mr-4"
+                  >
+                    No Image
+                  </div>
+                  <% } %>
+
+                  <div class="flex-1">
+                    <p class="font-medium text-gray-800"><%= p.name %></p>
+                    <p class="text-sm text-blue-600 font-semibold">
+                      $<%= p.price %>
+                    </p>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+
+              <div class="mt-4 text-right">
+                <span class="text-lg font-bold text-green-600"
+                  >Total: $<%= order.total.toFixed(2) %></span
+                >
+              </div>
+            </div>
+            <% }) %>
+          </div>
+          <% } %>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
