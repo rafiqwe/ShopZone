@@ -138,14 +138,14 @@
                   %>
 
                   <p class="text-blue-600 font-semibold">
-                    $<%= price - discount %>
+                    Tk <%= price - discount %>
                     <% if (discount > 0) { %>
-                      <span class="line-through text-gray-400 ml-2">$<%= price %></span>
+                      <span class="line-through text-gray-400 ml-2">Tk <%= price %></span>
                      
                     <% } %>
                   </p>
 
-                <!-- <p class="text-blue-600 font-semibold">$<%= product.price %></p> -->
+                <!-- <p class="text-blue-600 font-semibold">Tk <%= product.price %></p> -->
                 <p class="text-sm text-gray-500 capitalize">
                   <%= product.category %>
                 </p>
@@ -197,9 +197,9 @@
                     const discount = Number(product.discount);
                   %>
                   <p class="text-blue-600 font-semibold">
-                    $<%= price - discount %> 
+                    Tk <%= price - discount %> 
                     <% if (discount > 0) { %>
-                      <span class="line-through text-gray-400 ml-2">$<%= price   %></span>
+                      <span class="line-through text-gray-400 ml-2">Tk <%= price   %></span>
 
                     <% } %>
                   </p>
@@ -248,7 +248,7 @@
 
               <div class="p-4">
                 <h3 class="font-medium text-gray-800"><%= product.name %></h3>
-                <p class="text-blue-600 font-semibold">$<%= product.price %></p>
+                <p class="text-blue-600 font-semibold">Tk <%= product.price %></p>
                 <p class="text-sm text-gray-500 capitalize">
                   <%= product.category %>
                 </p>
