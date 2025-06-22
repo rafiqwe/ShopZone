@@ -3,7 +3,7 @@ const debug = require("debug")("development:mongoose");
 const config = require("config");
 
 mongoose
-  .connect(`${config.get("MONGODB_URL")}/scatch`)
+  .connect(`${config.get("MONGODB_URL")}/shopzone`)
   .then(() => {
     debug("MongoDB connected successfully");
   })
