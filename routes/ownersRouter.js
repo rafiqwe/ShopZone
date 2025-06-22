@@ -56,9 +56,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 router.get("/login", (req, res) => {
-  res.render("owner", {
-    error: req.flash("error"),
-  });
+  res.render("owner");
 });
 
 router.get("/logout", (req, res) => {
@@ -74,7 +72,7 @@ router.post("/login/dash", async (req, res) => {
     const owner = await ownerModel.findOne({ email });
     if (!owner) {
       // res.send("owner not fount");
-      req.flash("error", "Owner not found");
+      req.flash("error_msg", "Owner not found");
       return res.redirect("/owners/login");
     }
 
@@ -82,7 +80,7 @@ router.post("/login/dash", async (req, res) => {
     const isMatch = await bcrypt.compare(password, owner.password);
     if (!isMatch) {
       // res.send("passwod incorrect");
-      req.flash("error", "Incorrect password");
+      req.flash("error_msg", "Incorrect password");
       return res.redirect("/owners/login");
     }
 
