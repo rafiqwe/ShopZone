@@ -7,6 +7,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { ownerGenerateToken } = require("../utils/generateToken");
 const ordersModel = require("../models/orders-model");
+const productModel = require("../models/product-model");
+const upload = require("../middlewares/upload");
 
 if (process.env.NODE_ENV === "development") {
   router.post("/create", async (req, res) => {
@@ -58,6 +60,52 @@ if (process.env.NODE_ENV === "development") {
 router.get("/login", (req, res) => {
   res.render("owner");
 });
+
+router.get("/product/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  const product = await productModel.findById(id);
+  res.render("editProduct", { product });
+});
+
+router.post("/product/edit/:id", upload.single("image"), async (req, res) => {
+  const { id } = req.params;
+  const { name, price, category, discount, imageUrl, description } = req.body;
+
+  try {
+    const updatedData = {
+      name,
+      price,
+      category,
+      discount,
+      imageUrl,
+      description,
+    };
+
+    if (req.file) {
+      updatedData.image = "/uploads/" + req.file.filename;
+    }
+
+    const product = await productModel.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+
+    if (!product) {
+      // Option 1: Render directly
+      return res.redirect('/owners/products');
+    }
+
+    // Option 2: Flash message + redirect
+    req.session.success_msg = "Product updated successfully!";
+    res.redirect("/owners/products");
+  } catch (err) {
+    console.error("Error updating product:", err);
+    res.render("owners/product", {
+      error_msg: "Something went wrong while updating the product.",
+      product: {},
+    });
+  }
+});
+
 
 router.get("/logout", (req, res) => {
   res.cookie("ownerToken", "");
