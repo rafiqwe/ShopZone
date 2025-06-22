@@ -109,8 +109,8 @@
         <div class="space-y-6">
           <% let total = 0; %> <% cartProducts.forEach(product => { const price
           = Number(product.price); const discount = Number(product.discount);
-          const finalPrice = discount > 0 ? price * (1 - discount / 100) :
-          price; total += finalPrice; %>
+          const finalPrice = discount > 0 ? price - discount : price; total +=
+          finalPrice; %>
           <div
             class="flex items-start justify-between bg-white p-4 shadow rounded-lg"
           >
@@ -133,14 +133,15 @@
                   <%= product.description %>
                 </p>
                 <p class="text-blue-600 font-bold">
-                  $<%= finalPrice.toFixed(2) %> <% if (discount > 0) { %>
+                   <span class="text-2xl">৳ </span><%= finalPrice.toFixed(2) %> <% if (discount > 0) { %>
                   <span class="line-through text-gray-400 ml-2"
-                    >$<%= price %></span
+                    > <span class="text-2xl"></span><%= price %></span
                   >
                   <span
                     class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2"
-                    ><%= discount %>% OFF</span
                   >
+                   <span class="text-2xl"></span>  <%= discount %> Tk OFF
+                  </span>
                   <% } %>
                 </p>
               </div>
@@ -150,7 +151,7 @@
 
           <!-- 💰 Total & Place Order -->
           <div class="text-right mt-6">
-            <p class="text-xl font-bold">Total: $<%= total.toFixed(2) %></p>
+            <p class="text-xl font-bold">Total:  <span class="text-2xl">৳ </span><%= total.toFixed(2) %></p>
             <input type="hidden" name="total" value="<%= total.toFixed(2) %>" />
             <button
               type="submit"
