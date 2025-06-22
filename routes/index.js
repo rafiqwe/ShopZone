@@ -109,6 +109,8 @@ router.post("/checkout/place-order", isLoggedIn, async (req, res) => {
       total: parseFloat(total),
     });
 
+    //
+    user.orders.push(newOrder);
     // Clear the user's cart
     user.cart = [];
     await user.save();
@@ -164,8 +166,7 @@ router.post("/contact", async (req, res) => {
   // You can save this to DB or send an email, etc.
   console.log("📩 Contact Form:", { name, email, message });
 
-  res.render("contact", { message: "Thank you for contacting us!"});
+  res.render("contact", { message: "Thank you for contacting us!" });
 });
 
 module.exports = router;
- 
