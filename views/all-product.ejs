@@ -62,18 +62,17 @@
                 </h2>
 
                 <% const price = Number(product.price); const discount =
-                Number(product.discount) || 0; const discountedPrice = (price *
-                (1 - discount / 100)).toFixed(2); %>
+                Number(product.discount) || 0; const discountedPrice = price - discount %>
 
                 <p class="text-blue-600 font-semibold">
-                  $<%= discountedPrice %> <% if (discount > 0) { %>
+                  Tk <%= discountedPrice %> <% if (discount > 0) { %>
                   <span class="line-through text-gray-400 ml-2"
-                    >$<%= price %></span
+                    >Tk <%= price %></span
                   >
                   <span
                     class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2"
                   >
-                    <%= discount %>% OFF
+                    <%= discount %> Tk OFF
                   </span>
                   <% } %>
                 </p>
