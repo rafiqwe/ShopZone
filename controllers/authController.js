@@ -15,7 +15,7 @@ const registerUser = async (req, res) => {
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       req.flash("error_msg", "User already exists");
-      return res.redirect("/users");
+      return res.redirect("/users/register");
     }
 
     bcrypt.genSalt(10, (err, salt) => {
@@ -31,13 +31,13 @@ const registerUser = async (req, res) => {
           const token = generateToken(user);
           res.cookie("token", token);
           req.flash("success_msg", "Registered successfully!");
-          res.redirect("/users");
+          res.redirect("/shop");
         }
       });
     });
   } catch (error) {
     req.flash("error_msg", "Something went wrong");
-    res.redirect("/users");
+    res.redirect("/users/register");
   }
 };
 module.exports.loginUser = async function (req, res) {
@@ -46,7 +46,7 @@ module.exports.loginUser = async function (req, res) {
   const user = await userModel.findOne({ email });
   if (!user) {
     req.flash("error_msg", "Email or Password is invalid");
-    return res.redirect("/users");
+    return res.redirect("/users/register");
   }
 
   bcrypt.compare(password, user.password, (err, result) => {
@@ -56,14 +56,14 @@ module.exports.loginUser = async function (req, res) {
       return res.redirect("/shop");
     } else {
       req.flash("error_msg", "Email or Password is invalid");
-      return res.redirect("/users");
+      return res.redirect("/users/register");
     }
   });
 };
 
 module.exports.logout = (req, res) => {
   res.cookie("token", "");
-  res.redirect("/users");
+  res.redirect("/users/register");
 };
 
 module.exports.registerUser = registerUser;
