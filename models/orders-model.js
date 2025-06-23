@@ -13,6 +13,11 @@ const orderSchema = new mongoose.Schema({
       ref: "product",
     },
   ],
+  status: {
+    type: String,
+    enum: ["Pending", "Processing", "Delivered", "Cancelled"],
+    default: "Pending",
+  },
   total: Number,
   createdAt: {
     type: Date,
