@@ -39,16 +39,16 @@ cd shopzone </br>
 npm install </br>
 
 
-🔐 Set up .env </br>
+### 🔐 Set up .env </br>
 PORT=3000 </br>
 MONGO_URI=your_mongodb_url </br>
 SESSION_SECRET=your_secret </br>
 
-▶️ Run the Project </br>
+### ▶️ Run the Project </br>
 npm run dev </br> 
 App runs on: http://localhost:3000 </br>
 
-📁 Folder Overview </br>
+### 📁 Folder Overview </br>
 shopzone/ </br>
 ├── models/ </br>
 ├── routes/ </br>
@@ -60,11 +60,11 @@ shopzone/ </br>
 ├── utils/ </br>
 └── server.js </br>
 
-🙌 Author </br>
+### 🙌 Author </br>
 Muhammad Rabbi </br>
 Frontend Dev & Creative Coder </br>
 
-⚖️ License </br>
+### ⚖️ License </br>
 This project is licensed under the MIT License. </br>
 Feel free to fork, improve, or use this template for your next eCommerce idea! </br>
 
