@@ -169,4 +169,66 @@ router.post("/contact", async (req, res) => {
   res.render("contact", { message: "Thank you for contacting us!" });
 });
 
+router.get("/orders", isLoggedIn, async (req, res) => {
+  try {
+    const email = req.user.email;
+
+    const orders = await orderModel
+      .find({ "user.email": email })
+      .populate("products");
+
+    res.render("userOrders", { orders });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.render("userOrders", {
+      orders: [],
+      error_msg: "Failed to load orders.",
+    });
+  }
+});
+
+router.post("/orders/:id/status", isLoggedIn, async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    await orderModel.findByIdAndUpdate(id, { status });
+    res.redirect("/owners/oders"); // or wherever your order page is
+  } catch (err) {
+    console.error("Error updating order status:", err);
+    res.redirect("/owners/oders");
+  }
+});
+
+// routes/userRouter.js
+router.post("/orders/:id/cancel", isLoggedIn, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const order = await orderModel.findById(id);
+
+    // Only allow cancel if status is not Delivered
+    if (order && order.status !== "Delivered") {
+      order.status = "Cancelled";
+      await order.save();
+    }
+
+    res.redirect("/Orders"); // your actual user order route
+  } catch (err) {
+    console.error("Error cancelling order:", err);
+    res.redirect("/Orders");
+  }
+});
+
+// DELETE order by ID
+router.post("/orders/:id/delete", async (req, res) => {
+  try {
+    await orderModel.findByIdAndDelete(req.params.id);
+    res.redirect("/owners/oders"); // Update path based on your order list view
+  } catch (err) {
+    console.error("Error deleting order:", err);
+    res.redirect("/owners/oders");
+  }
+});
+
 module.exports = router;
