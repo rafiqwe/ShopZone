@@ -17,7 +17,7 @@ router.post("/cart/add", isLoggedIn, async (req, res) => {
   user.cart.push(productId);
   await user.save();
   req.flash("success_msg", "Added to cart successfully.");
-  res.redirect("/shop");
+  res.redirect("/cart");
 });
 
 router.get("/cart", isLoggedIn, async (req, res) => {
@@ -116,7 +116,7 @@ router.post("/checkout/place-order", isLoggedIn, async (req, res) => {
     await user.save();
 
     req.flash("success_msg", "Order placed successfully!");
-    res.redirect("/shop"); // or render a page like res.render("thank-you", { order: newOrder })
+    res.redirect("/Orders"); // or render a page like res.render("thank-you", { order: newOrder })
   } catch (error) {
     console.error("Order failed:", error.message);
     res.status(500).send("Failed to place order");
