@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Your Orders</title>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <!-- Navbar -->
+    <%- include('./partials/navber') %>
+
+    <!-- Flash Messages -->
+    <% if (success_msg.length > 0) { %>
+    <div
+      class="bg-green-100 text-green-800 px-6 py-3 rounded shadow mx-auto w-fit mt-6"
+    >
+      <%= success_msg %>
+    </div>
+    <% } %> <% if (error_msg.length > 0) { %>
+    <div
+      class="bg-red-100 text-red-800 px-6 py-3 rounded shadow mx-auto w-fit mt-6"
+    >
+      <%= error_msg %>
+    </div>
+    <% } %>
+
+    <!-- Orders Section -->
+    <section class="max-w-6xl mx-auto px-4 py-10">
+      <h1 class="text-3xl font-bold mb-8 text-gray-800">🧾 Your Orders</h1>
+
+      <% if (orders.length > 0) { %> <% orders.forEach(order => { %>
+      <div class="mb-6 p-4 bg-white rounded shadow">
+        <h2 class="text-xl font-bold mb-2">
+          Order from <%= order.user.name %> - <%= new
+          Date(order.createdAt).toLocaleString() %>
+        </h2>
+        <!-- Status -->
+        <% if(order.status === "Processing"){ %>
+        <p class="text-md text-yellow-500 font-bold mb-2">
+          Status: <%= order.status %>
+        </p>
+        <% } else if(order.status === "Pending"){ %>
+        <p class="text-md text-gray-500 font-bold mb-2">
+          Status: <%= order.status %>
+        </p>
+        <% } else if(order.status === "Delivered"){ %>
+        <p class="text-md text-green-500 font-bold mb-2">
+          Status: <%= order.status %>
+        </p>
+        <% } else if(order.status === "Cancelled"){ %>
+        <p class="text-md text-red-500 font-bold mb-2">
+          Status: <%= order.status %>
+        </p>
+        <% } %>
+
+        <p class="text-sm text-gray-500 mb-3">
+          Total: Tk <%= order.total.toFixed(2) %>
+        </p>
+
+        <% order.products.forEach(product => { %>
+        <div class="flex items-center gap-4 border-b py-2">
+          <% if (product.imageUrl) { %>
+          <img
+            src="<%= product.imageUrl %>"
+            class="w-16 h-16 object-cover rounded"
+          />
+          <% } else { %>
+          <div
+            class="w-16 h-16 bg-gray-300 flex items-center justify-center text-gray-600 text-sm"
+          >
+            No Image
+          </div>
+          <% } %>
+          <div>
+            <h3 class="font-semibold"><%= product.name %></h3>
+            <p class="text-sm text-gray-500">Price: Tk <%= product.price %></p>
+            <p class="text-sm text-gray-500">
+              Discount: Tk <%= product.discount || 0%>
+            </p>
+          </div>
+          <!-- Cancel Button -->
+          <% const now = new Date(); const orderTime = new
+          Date(order.createdAt); const diffHours = (now - orderTime) / (1000 *
+          60 * 60); // difference in hours %> <% if (order.status !==
+          "Delivered" && order.status !== "Cancelled") { %> <% if (diffHours <
+          24) { %>
+          <form
+            action="/orders/<%= order._id %>/cancel"
+            method="POST"
+            class="mt-2 md:ml-20"
+            onsubmit="return confirm('Are you sure you want to cancel this order?');"
+          >
+            <button
+              type="submit"
+              class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+            >
+              Cancel Order
+            </button>
+          </form>
+          <% } else { %>
+          <button
+            disabled
+            class="bg-gray-400 text-white px-4 py-2 rounded mt-2 cursor-not-allowed"
+          >
+            Cancel (Expired)
+          </button>
+          <% } %> <% } %>
+        </div>
+        <% }); %>
+      </div>
+      <% }); %> <% } else { %>
+      <p class="text-gray-600 text-center mt-10">You have no orders yet.</p>
+      <% } %>
+    </section>
+
+    <!-- Footer -->
+    <%- include('./partials/footer') %>
+  </body>
+</html>
