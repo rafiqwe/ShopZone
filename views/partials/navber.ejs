@@ -1,28 +1,111 @@
-<header class="bg-white shadow sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-    <div class="text-xl font-bold text-gray-800">ShopZone</div>
-    <% var loggedIn = typeof loggedIn !== 'undefined' ? loggedIn : false %> <%
-    if(loggedIn){ %>
-    <ul class="flex gap-6 items-center">
-      <li>
-        <a href="/" class="text-gray-700 hover:text-yellow-500">Home</a>
-      </li>
+<header class="bg-white border-b border-gray-200 shadow-md w-full"
+      x-data="{ open: false }"">
+  <div >
+    <% var loggedIn = typeof loggedIn !== 'undefined' ? loggedIn : false %> 
 
-      <li>
-        <a href="/users/register" class="text-gray-700 hover:text-yellow-500"
-          >Register</a
+    
+
+    <!-- Alpine.js for toggle -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+
+    <nav
+      
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <div class="flex-shrink-0 text-xl font-bold text-blue-600">
+            <a href="/">ShopZone</a>
+          </div>
+
+          <!-- Hamburger button (mobile) -->
+          <div class="flex md:hidden">
+            <button
+              @click="open = !open"
+              type="button"
+              class="text-gray-800 hover:text-blue-600 focus:outline-none"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  :class="{ 'hidden': open }"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+                <path
+                  :class="{ 'hidden': !open }"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Menu (desktop) -->
+          <% if(loggedIn){ %>  
+            <div
+              class="hidden md:flex space-x-6 items-center text-gray-800 font-medium"
+            >
+              <a href="/" class="hover:text-blue-600">Home</a>
+              <a href="/users/register" class="hover:text-blue-600">Register</a>
+
+            </div>
+              </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div
+              x-show="open"
+              class="md:hidden px-4 pt-4 pb-6 bg-blue-600 text-white flex flex-col space-y-4"
+            >
+              <a href="/" class="hover:text-blue-600">Home</a>
+              <a href="/users/register" class="hover:text-blue-600">Register</a>
+            </div>
+
+      <% } %>
+
+        <% if(!loggedIn){ %>  
+          <div
+            class="hidden md:flex space-x-6 items-center text-gray-800 font-medium"
+          >
+            <a href="/" class="hover:text-blue-600">Home</a>
+            <a href="/shop" class="hover:text-blue-600">Shop</a>
+            <a href="/contact" class="hover:text-blue-600">Contact</a>
+            <a href="/cart" class="hover:text-blue-600">Cart</a>
+            <a href="/Orders" class="hover:text-blue-600">My Orders</a>
+            <a href="/users/logout" class="text-red-700">Logout</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        x-show="open"
+        class="md:hidden px-4 pt-4 pb-6 bg-blue-600 text-white space-y-4"
+      >
+        <a href="/" class="block hover:text-gray-300">Home</a>
+        <a href="/shop" class="block hover:text-gray-300">Shop</a>
+        <a href="/contact" class="block hover:text-gray-300">Contact</a>
+        <a href="/cart" class="block hover:text-gray-300">Cart</a>
+        <a href="/Orders" class="block hover:text-gray-300">My Orders</a>
+        <a href="/users/logout" class="block text-red-300 hover:text-red-400"
+          >Logout</a
         >
-      </li>
-    </ul>
-    <% } %> <% if(!loggedIn){ %>
-    <nav class="space-x-4 text-gray-700 font-medium">
-      <a href="/" class="hover:text-blue-600">Home</a>
-      <a href="/shop" class="hover:text-blue-600">Shop</a>
-      <a href="/contact" class="hover:text-blue-600">Contact</a>
-      <a href="/cart" class="hover:text-blue-600">Cart</a>
-      <a href="/Orders" class="hover:text-blue-600">My Orders</a>
-      <a href="/users/logout" class="text-red-700">Logout</a>
+      </div>
+      
+      <% } %>
     </nav>
-    <% } %>
+
   </div>
 </header>
