@@ -60,7 +60,7 @@
         </p>
 
         <% order.products.forEach(product => { %>
-        <div class="flex items-center gap-4 border-b py-2">
+        <div class="flex items-center flex-wrap gap-4 border-b py-2">
           <% if (product.imageUrl) { %>
           <img
             src="<%= product.imageUrl %>"
