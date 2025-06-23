@@ -82,10 +82,54 @@
                 <% }) %>
               </div>
 
-              <div class="mt-4 text-right">
-                <span class="text-lg font-bold text-green-600"
-                  >Total: $<%= order.total.toFixed(2) %></span
+              <div class="mt-4 text-right flex items-center gap-4 justify-end">
+                <!-- Processing Button -->
+                <form action="/orders/<%= order._id %>/status" method="POST">
+                  <input type="hidden" name="status" value="Processing" />
+                  <button
+                    <% if (order.status === 'Cancelled') { %> disabled <% } %>
+                    class="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-white px-4 py-2 rounded"
+                  >
+                    Mark as Processing
+                  </button>
+                </form>
+
+                <!-- Delivered Button -->
+                <form action="/orders/<%= order._id %>/status" method="POST">
+                  <input type="hidden" name="status" value="Delivered" />
+                  <button
+                    <% if (order.status === 'Cancelled') { %> disabled <% } %>
+                    class="bg-green-600 cursor-pointer hover:bg-green-700 text-white px-4 py-2 rounded"
+                  >
+                    Mark as Delivered
+                  </button>
+                </form>
+
+                <!-- Delete Button -->
+                <form
+                  action="/orders/<%= order._id %>/delete"
+                  method="POST"
+                  onsubmit="return confirm('Are you sure you want to permanently delete this order?');"
                 >
+                  <button
+                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+                    <% if(order.status === "Processing" || "Pending") { %>
+                        disabled
+                   <% }  %>
+                  >
+                    Delete
+                  </button>
+                </form>
+
+                <span
+                  class="text-lg font-bold <%= order.status === 'Cancelled' ? 'text-red-500' : 'text-blue-700' %>"
+                >
+                  Status: <%= order.status %>
+                </span>
+
+                <span class="text-lg font-bold text-green-600">
+                  Total: $<%= order.total.toFixed(2) %>
+                </span>
               </div>
             </div>
             <% }) %>
