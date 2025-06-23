@@ -82,7 +82,7 @@
                 <% }) %>
               </div>
 
-              <div class="mt-4 text-right flex items-center gap-4 justify-end">
+              <div class="mt-4 text-right flex flex-wrap items-center gap-4 justify-end">
                 <!-- Processing Button -->
                 <form action="/orders/<%= order._id %>/status" method="POST">
                   <input type="hidden" name="status" value="Processing" />
@@ -113,7 +113,11 @@
                 >
                   <button
                     class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-                    <% if(order.status === "Processing" || "Pending") { %>
+                    <% if(order.status === "Processing") { %>
+                        disabled
+                   <% }  %>
+
+                   <% if(order.status === "Pending") { %>
                         disabled
                    <% }  %>
                   >
