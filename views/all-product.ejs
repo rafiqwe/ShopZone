@@ -56,13 +56,14 @@
               />
               <% } %>
 
-              <div class="p-4 flex-1">
+              <div class="p-4 flex-1 flex-wrap">
                 <h2 class="text-lg font-semibold text-gray-800">
                   <%= product.name %>
                 </h2>
 
                 <% const price = Number(product.price); const discount =
-                Number(product.discount) || 0; const discountedPrice = price - discount %>
+                Number(product.discount) || 0; const discountedPrice = price -
+                discount %>
 
                 <p class="text-blue-600 font-semibold">
                   Tk <%= discountedPrice %> <% if (discount > 0) { %>

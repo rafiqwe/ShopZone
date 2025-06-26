@@ -91,7 +91,7 @@ router.post("/product/edit/:id", upload.single("image"), async (req, res) => {
 
     if (!product) {
       // Option 1: Render directly
-      return res.redirect('/owners/products');
+      return res.redirect("/owners/products");
     }
 
     // Option 2: Flash message + redirect
@@ -105,7 +105,6 @@ router.post("/product/edit/:id", upload.single("image"), async (req, res) => {
     });
   }
 });
-
 
 router.get("/logout", (req, res) => {
   res.cookie("ownerToken", "");
