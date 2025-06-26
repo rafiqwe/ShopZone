@@ -1,14 +1,18 @@
+// backend/config/db.js
 const mongoose = require("mongoose");
-const debug = require("debug")("development:mongoose");
-const config = require("config");
+require("dotenv").config();
+
+mongoose.set("strictQuery", false);
+console.log(process.env.MONGO_URI);
 
 mongoose
-  .connect(`${config.get("MONGODB_URL")}/shopzone`)
+  .connect(process.env.MONGO_URI)
   .then(() => {
-    debug("MongoDB connected successfully");
+    console.log("✅ MongoDB connected successfully");
   })
   .catch((err) => {
-    debug("MongoDB connection error:", err);
+    console.error("❌ MongoDB connection error:", err.message);
+    process.exit(1); // exit the app if DB fails to connect
   });
 
 module.exports = mongoose.connection;
