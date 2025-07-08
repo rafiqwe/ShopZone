@@ -9,6 +9,7 @@ const productRouter = require("./routes/productsRouter");
 const expressSeccion = require("express-session");
 const flash = require("connect-flash");
 const index = require("./routes/index");
+const serverless = require("serverless-http");
 
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -40,3 +41,6 @@ app.use("/users", usersRouter);
 app.use("/product", productRouter);
 app.use("/", index);
 app.listen(port);
+
+
+module.exports.handler = serverless(app);
